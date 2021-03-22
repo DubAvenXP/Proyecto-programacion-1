@@ -10,9 +10,17 @@ package com.mycompany.proyectoprogramacioni;
  * @author dubavenxp
  */
 public class User {
+    private int code;
     private String username;
     private String password;
     private String role;
+    private String name;
+    private String lastname;
+    private String birthdate;
+    private String email;
+    private String phone;
+    private String address;
+    
     
 
     
@@ -56,5 +64,103 @@ public class User {
      */
     public void setRole(String role) {
         this.role = role;
+    }
+
+    /**
+     * @return the code
+     */
+    public int getCode() {
+        return code;
+    }
+
+    /**
+     * @param code the code to set
+     */
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the lastname
+     */
+    public String getLastname() {
+        return lastname;
+    }
+
+    /**
+     * @param lastname the lastname to set
+     */
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    /**
+     * @return the birthdate
+     */
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    /**
+     * @param birthdate the birthdate to set
+     */
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the phone
+     */
+    public String getPhone() {
+        return phone;
+    }
+
+    /**
+     * @param phone the phone to set
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
