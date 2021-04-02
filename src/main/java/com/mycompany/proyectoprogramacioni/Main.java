@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static ArrayList<User> users;
+    public static ArrayList<Product> products;
     
     public static void main(String[] args) {
         // TODO code application logic here
@@ -21,6 +22,7 @@ public class Main {
         l.setVisible(true);
         l.setLocationRelativeTo(null);
         users = new ArrayList<User>();
+        products = new ArrayList<Product>();
     }
     
 }
