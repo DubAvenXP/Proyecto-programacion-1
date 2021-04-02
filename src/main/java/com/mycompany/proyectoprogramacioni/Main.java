@@ -19,6 +19,7 @@ public class Main {
         // TODO code application logic here
         Login l = new Login();
         l.setVisible(true);
+        l.setLocationRelativeTo(null);
         users = new ArrayList<User>();
     }
     

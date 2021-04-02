@@ -81,6 +81,7 @@ public class Bienvenida extends javax.swing.JFrame {
         // TODO add your handling code here:
         Login login = new Login();
         login.setVisible(true);
+        login.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_logoutActionPerformed
 
