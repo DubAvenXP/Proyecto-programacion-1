@@ -13,14 +13,22 @@ import javax.swing.JOptionPane;
  *
  * @author dubavenxp
  */
-public class ModifyUsers extends javax.swing.JFrame {
+public final class ModifyUsers extends javax.swing.JFrame {
 
     /**
      * Creates new form modifyUsers
      */
+    private String username;
     private User userToModify;
     private boolean userExists = false;
-    public ModifyUsers() {
+
+    public ModifyUsers(String username) {
+        initComponents();
+        this.username = username;
+        searchUser(this.username);
+    }
+    
+    public ModifyUsers(){
         initComponents();
     }
 
@@ -92,6 +100,11 @@ public class ModifyUsers extends javax.swing.JFrame {
         });
 
         deleteUser.setText("Eliminar");
+        deleteUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteUserActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Regresar");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -203,18 +216,7 @@ public class ModifyUsers extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        // TODO add your handling code here:
-        AdminView adminView = new AdminView();
-        adminView.setVisible(true);
-        adminView.setLocationRelativeTo(null);
-        this.dispose();
-        
-    }//GEN-LAST:event_jMenu1MouseClicked
-
-    private void searchUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchUserActionPerformed
-        // TODO add your handling code here:
-        String username = userInput.getText();
+    public void searchUser(String username){
         for (User user : Main.users) {
             if (user.getUsername().equals(username)) {
                 userToModify = user;
@@ -227,11 +229,27 @@ public class ModifyUsers extends javax.swing.JFrame {
                 emailInput.setText(user.getEmail());
                 lastnameInput.setText(user.getLastname());
                 birthdateInput.setText(user.getBirthdate());
-            } else {
-                userExists = false;
-                JOptionPane.showMessageDialog(this, "Usuario no encontrado");
+                break;
             }
         }
+        if (userExists == false) {
+             JOptionPane.showMessageDialog(this, "Usuario no encontrado");
+        }
+    }
+    
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        AdminView adminView = new AdminView();
+        adminView.setVisible(true);
+        adminView.setLocationRelativeTo(null);
+        this.dispose();
+        
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void searchUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchUserActionPerformed
+        // TODO add your handling code here:
+        String username = userInput.getText();
+        searchUser(username);
     }//GEN-LAST:event_searchUserActionPerformed
 
     private void modifyUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyUserActionPerformed
@@ -245,10 +263,40 @@ public class ModifyUsers extends javax.swing.JFrame {
             userToModify.setEmail(emailInput.getText());
             userToModify.setLastname(lastnameInput.getText());
             userToModify.setBirthdate(birthdateInput.getText());
+            JOptionPane.showMessageDialog(this, "Usuario modificado con exito");
+            usernameInput.setText("");
+            phoneInput.setText("");
+            roleInput.setText("");
+            addressInput.setText("");
+            nameInput.setText("");
+            emailInput.setText("");
+            lastnameInput.setText("");
+            birthdateInput.setText("");
         } else {
-            JOptionPane.showMessageDialog(this, "Sin usuario, para modificar");
+            JOptionPane.showMessageDialog(this, "No se ha encontrado usuario "
+                    + "para modificar");
         }
     }//GEN-LAST:event_modifyUserActionPerformed
+
+    private void deleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserActionPerformed
+        // TODO add your handling code here:
+        if(userExists){
+            int index = (userToModify.getCode() - 1);
+            Main.users.remove(index);
+            JOptionPane.showMessageDialog(this, "Usuario eliminado con exito");
+            usernameInput.setText("");
+            phoneInput.setText("");
+            roleInput.setText("");
+            addressInput.setText("");
+            nameInput.setText("");
+            emailInput.setText("");
+            lastnameInput.setText("");
+            birthdateInput.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha encontrado usuario "
+                    + "para eliminar");
+        }
+    }//GEN-LAST:event_deleteUserActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

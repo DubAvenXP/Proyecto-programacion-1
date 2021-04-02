@@ -32,8 +32,8 @@ public class AdminView extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         createUsers = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        modifyUsers = new javax.swing.JMenuItem();
+        viewUsers = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -58,16 +58,26 @@ public class AdminView extends javax.swing.JFrame {
         });
         jMenu1.add(createUsers);
 
-        jMenuItem2.setText("Consultar usuarios");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        modifyUsers.setText("Modificar usuarios");
+        modifyUsers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                modifyUsersActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(modifyUsers);
 
-        jMenuItem3.setText("Eliminar usuarios");
-        jMenu1.add(jMenuItem3);
+        viewUsers.setText("Consultar usuarios");
+        viewUsers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewUsersMouseClicked(evt);
+            }
+        });
+        viewUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewUsersActionPerformed(evt);
+            }
+        });
+        jMenu1.add(viewUsers);
 
         jMenuBar1.add(jMenu1);
 
@@ -107,20 +117,32 @@ public class AdminView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_createUsersActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void modifyUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyUsersActionPerformed
         // TODO add your handling code here:
         ModifyUsers modifyUsers = new ModifyUsers();
         modifyUsers.setVisible(true);
         modifyUsers.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_modifyUsersActionPerformed
+
+    private void viewUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewUsersMouseClicked
+        // TODO add your handling code here:Ajd22es57103!
+    }//GEN-LAST:event_viewUsersMouseClicked
+
+    private void viewUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewUsersActionPerformed
+        // TODO add your handling code here:
+        ViewUsers viewUsers = new ViewUsers();
+        viewUsers.setVisible(true);
+        viewUsers.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_viewUsersActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem createUsers;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem modifyUsers;
+    private javax.swing.JMenuItem viewUsers;
     // End of variables declaration//GEN-END:variables
 }

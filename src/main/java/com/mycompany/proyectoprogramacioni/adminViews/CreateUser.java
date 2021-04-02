@@ -268,6 +268,7 @@ public class CreateUser extends javax.swing.JFrame {
         }
         
         if (passwordValidation) {
+            // modificar luego este codigo para que sea mas exacto
             int code = Main.users.size() + 1;
             User user = new User();
             user.setUsername(username);
@@ -288,7 +289,16 @@ public class CreateUser extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Contraseña insegura");
         }
         
-        
+        usernameInput1.setText("");
+        passwordInput.setText("");
+        passwordInput1.setText("");
+        roleInput.setText("");
+        nameInput.setText("");
+        lastnameInput.setText("");
+        emailInput.setText("");
+        phoneInput.setText("");
+        addressInput.setText("");
+        birthdateInput.setText("");
     }//GEN-LAST:event_createUserActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
