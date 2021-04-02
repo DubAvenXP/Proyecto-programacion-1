@@ -7,6 +7,11 @@ package com.mycompany.proyectoprogramacioni.adminViews;
 
 import com.mycompany.proyectoprogramacioni.Main;
 import com.mycompany.proyectoprogramacioni.Product;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -43,6 +48,36 @@ public class ViewProducts extends javax.swing.JFrame {
         
     }
     
+    public void saveFile(File file){
+        FileWriter fileWriter = null;
+        PrintWriter printWriter = null;
+        
+        try {
+            fileWriter = new FileWriter(file);
+            printWriter = new PrintWriter(fileWriter);
+            
+            for (Product product : Main.products) {
+                
+                String line = product.getCode()+","+product.getName()
+                        +","+product.getPrice()+","+product.getQuantity()
+                        +","+product.getDescription();
+                printWriter.println(line);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            try {
+                if (fileWriter != null) {
+                    fileWriter.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,6 +93,7 @@ public class ViewProducts extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         productNameInput = new javax.swing.JTextField();
         goToModify = new javax.swing.JButton();
+        exportProducts = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -89,6 +125,13 @@ public class ViewProducts extends javax.swing.JFrame {
             }
         });
 
+        exportProducts.setText("Exportar productos");
+        exportProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportProductsActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("Regresar");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -112,17 +155,22 @@ public class ViewProducts extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(productNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(goToModify, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(goToModify, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 213, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(225, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exportProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exportProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
@@ -131,7 +179,7 @@ public class ViewProducts extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(productNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(goToModify, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addGap(93, 93, 93))
         );
 
         pack();
@@ -153,8 +201,23 @@ public class ViewProducts extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
 
+    private void exportProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportProductsActionPerformed
+        // TODO add your handling code here:
+        JFileChooser jFileChooser = new JFileChooser();
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Archivos csv", "csv");
+        
+        jFileChooser.setFileFilter(fileFilter);
+        int seleccionar = jFileChooser.showOpenDialog(this);
+        
+        if (seleccionar == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+            saveFile(file);
+        }
+    }//GEN-LAST:event_exportProductsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton exportProducts;
     private javax.swing.JButton goToModify;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
