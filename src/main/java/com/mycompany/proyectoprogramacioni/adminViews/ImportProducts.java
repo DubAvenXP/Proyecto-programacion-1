@@ -44,9 +44,8 @@ public class ImportProducts extends javax.swing.JFrame {
             String line;
             
             while((line = bufferedReader.readLine()) != null){
-                
-                String arrayOfProduct[] = line.split(",");
-                
+                String arrayOfProduct [] = line.split("\\|");
+                                
                 if(arrayOfProduct.length == 5){
                     Product product = new Product();
                     product.setCode(Integer.parseInt(arrayOfProduct[0]));
@@ -72,14 +71,15 @@ public class ImportProducts extends javax.swing.JFrame {
         
     }
     
-       private void fillJTable(JTable jTable, ArrayList<Product> products){
+    private void fillJTable(JTable jTable, ArrayList<Product> products){
         DefaultTableModel defaultTableModel = new DefaultTableModel(
                 new String[]{"Id","Producto","Precio","Cantidad","Descripcion"}, 
                 products.size()
         );
+        
         jTable.setModel(defaultTableModel);
         TableModel tableModel = jTable.getModel();
-        
+
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
             tableModel.setValueAt(product.getCode(), i, 0);
@@ -157,7 +157,7 @@ public class ImportProducts extends javax.swing.JFrame {
         jLabel1.setText("Elementos cargados");
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel2.setText("Elementos guardados");
+        jLabel2.setText("Elementos  fallidos");
 
         jMenu1.setText("Regresar");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -185,10 +185,10 @@ public class ImportProducts extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,6 +253,8 @@ public class ImportProducts extends javax.swing.JFrame {
                 }
             }
             JOptionPane.showMessageDialog(this, "Productos cargados exitosamente");
+            productsToLoad.clear();
+            fillJTable(jTable1, productsToLoad);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Hubo un error al cargar los productos, revisa tu archivo");

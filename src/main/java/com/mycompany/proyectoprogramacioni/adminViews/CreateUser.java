@@ -38,9 +38,6 @@ public class CreateUser extends javax.swing.JFrame {
             }
         }
         
-        System.out.println("numbers " + numbers);
-        System.out.println("signs " + signs );
-        System.out.println("capitals " + capitals);
         
         if ((length > 8) && (numbers >= 1) && (signs >= 1) && (capitals >= 1)) {
             result = true;

@@ -5,6 +5,19 @@
  */
 package com.mycompany.proyectoprogramacioni.adminViews;
 
+import com.mycompany.proyectoprogramacioni.Main;
+import com.mycompany.proyectoprogramacioni.User;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author dubavenxp
@@ -14,8 +27,76 @@ public class ImportUsers extends javax.swing.JFrame {
     /**
      * Creates new form ImportUsers
      */
+    private ArrayList<User> usersToLoad = new ArrayList<User>();
+    private ArrayList<User> usersWithError = new ArrayList<User>();
     public ImportUsers() {
         initComponents();
+    }
+    
+    public void loadFile(File file){
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+        
+        try {
+            fileReader = new FileReader(file);
+            bufferedReader = new BufferedReader(fileReader);
+            
+            String line;
+            
+            while((line = bufferedReader.readLine()) != null){
+                String arrayUser [] = line.split("\\|");
+                                
+                if(arrayUser.length == 10){
+                    User user = new User();
+                    user.setCode(Integer.parseInt(arrayUser[0]));
+                    user.setUsername(arrayUser[1]);
+                    user.setName(arrayUser[2]);
+                    user.setLastname(arrayUser[3]);
+                    user.setRole(arrayUser[4]);
+                    user.setEmail(arrayUser[5]);
+                    user.setPhone(arrayUser[6]);
+                    user.setAddress(arrayUser[7]);
+                    user.setBirthdate(arrayUser[8]);
+                    user.setPassword(arrayUser[9]);
+                    usersToLoad.add(user);
+                }
+            }
+            fillJTable(jTable1, usersToLoad);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            try {
+                if (fileReader != null) {
+                    fileReader.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+    }
+    
+    private void fillJTable(JTable jTable, ArrayList<User> users){
+     DefaultTableModel defaultTableModel = new DefaultTableModel(
+             new String[]{"Id","Username","name","lastname","role","email","phone","address","birthdate"}, 
+             users.size()
+     );
+     jTable.setModel(defaultTableModel);
+     TableModel tableModel = jTable.getModel();
+
+     for (int i = 0; i < users.size(); i++) {
+         User user = users.get(i);
+               tableModel.setValueAt(user.getCode(), i, 0);
+            tableModel.setValueAt(user.getUsername(), i, 1);
+            tableModel.setValueAt(user.getName(), i, 2);
+            tableModel.setValueAt(user.getLastname(), i, 3);
+            tableModel.setValueAt(user.getRole(), i, 4);
+            tableModel.setValueAt(user.getEmail(), i, 5);
+            tableModel.setValueAt(user.getPhone(), i, 6);
+            tableModel.setValueAt(user.getAddress(), i, 7);
+            tableModel.setValueAt(user.getBirthdate(), i, 8);
+            tableModel.setValueAt(user.getPassword(), i, 9);
+     }
     }
 
     /**
@@ -27,10 +108,64 @@ public class ImportUsers extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        chooseFile = new javax.swing.JButton();
+        saveData = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        chooseFile.setText("Seleccionar archivo");
+        chooseFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseFileActionPerformed(evt);
+            }
+        });
+
+        saveData.setText("Guardar");
+        saveData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveDataActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel1.setText("Elementos cargados");
+
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel2.setText("Elementos  fallidos/duplicados");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         jMenu1.setText("Regresar");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -46,11 +181,41 @@ public class ImportUsers extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(saveData, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveData, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(63, 63, 63))
         );
 
         pack();
@@ -63,6 +228,49 @@ public class ImportUsers extends javax.swing.JFrame {
         adminView.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void chooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileActionPerformed
+        // TODO add your handling code here:
+        JFileChooser jFileChooser = new JFileChooser();
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Archivos csv", "csv");
+
+        jFileChooser.setFileFilter(fileFilter);
+        int seleccionar = jFileChooser.showOpenDialog(this);
+
+        if (seleccionar == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+            loadFile(file);
+        }
+    }//GEN-LAST:event_chooseFileActionPerformed
+
+    private void saveDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveDataActionPerformed
+        // TODO add your handling code here:
+        try {
+            boolean userIsValid = true;
+            for (User user : usersToLoad) {
+                for (int i = 0; i < Main.users.size(); i++) {
+                    if (user.getName().equals(Main.users.get(i).getName())) {
+                        userIsValid = false;
+                        break;
+                    }
+                }
+
+                if (userIsValid) {
+                    Main.users.add(user);
+                } else {
+                    usersWithError.add(user);
+                    fillJTable(jTable2, usersWithError);
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Usuarios cargados exitosamente");
+            usersToLoad.clear();
+            fillJTable(jTable1, usersToLoad);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Hubo un error al cargar los productos, revisa tu archivo");
+        }
+
+    }//GEN-LAST:event_saveDataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -100,7 +308,15 @@ public class ImportUsers extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton chooseFile;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JButton saveData;
     // End of variables declaration//GEN-END:variables
 }
