@@ -77,26 +77,27 @@ public class ImportUsers extends javax.swing.JFrame {
     }
     
     private void fillJTable(JTable jTable, ArrayList<User> users){
-     DefaultTableModel defaultTableModel = new DefaultTableModel(
-             new String[]{"Id","Username","name","lastname","role","email","phone","address","birthdate"}, 
-             users.size()
-     );
-     jTable.setModel(defaultTableModel);
-     TableModel tableModel = jTable.getModel();
-
-     for (int i = 0; i < users.size(); i++) {
-         User user = users.get(i);
+        DefaultTableModel defaultTableModel = new DefaultTableModel(
+                new String[]{"Id","Username","name","lastname","role","email","phone","address","birthdate","password"}, 
+                users.size()
+        );
+        
+        jTable.setModel(defaultTableModel);
+        TableModel tableModel = jTable.getModel();
+        
+        for (int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
                tableModel.setValueAt(user.getCode(), i, 0);
-            tableModel.setValueAt(user.getUsername(), i, 1);
-            tableModel.setValueAt(user.getName(), i, 2);
-            tableModel.setValueAt(user.getLastname(), i, 3);
-            tableModel.setValueAt(user.getRole(), i, 4);
-            tableModel.setValueAt(user.getEmail(), i, 5);
-            tableModel.setValueAt(user.getPhone(), i, 6);
-            tableModel.setValueAt(user.getAddress(), i, 7);
-            tableModel.setValueAt(user.getBirthdate(), i, 8);
-            tableModel.setValueAt(user.getPassword(), i, 9);
-     }
+               tableModel.setValueAt(user.getUsername(), i, 1);
+               tableModel.setValueAt(user.getName(), i, 2);
+               tableModel.setValueAt(user.getLastname(), i, 3);
+               tableModel.setValueAt(user.getRole(), i, 4);
+               tableModel.setValueAt(user.getEmail(), i, 5);
+               tableModel.setValueAt(user.getPhone(), i, 6);
+               tableModel.setValueAt(user.getAddress(), i, 7);
+               tableModel.setValueAt(user.getBirthdate(), i, 8);
+               tableModel.setValueAt(user.getPassword(), i, 9);
+        }
     }
 
     /**
@@ -271,41 +272,6 @@ public class ImportUsers extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_saveDataActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ImportUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ImportUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ImportUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ImportUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ImportUsers().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton chooseFile;

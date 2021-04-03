@@ -35,8 +35,8 @@ public class AdminView extends javax.swing.JFrame {
         createUsers = new javax.swing.JMenuItem();
         modifyUsers = new javax.swing.JMenuItem();
         viewUsers = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        exportUsers = new javax.swing.JMenuItem();
+        importUsers = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         createProduct = new javax.swing.JMenuItem();
         modifyProduct = new javax.swing.JMenuItem();
@@ -90,16 +90,21 @@ public class AdminView extends javax.swing.JFrame {
         });
         jMenu1.add(viewUsers);
 
-        jMenuItem6.setText("Exportar usuarios");
-        jMenu1.add(jMenuItem6);
-
-        jMenuItem7.setText("Importar usuarios");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        exportUsers.setText("Exportar usuarios");
+        exportUsers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                exportUsersActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem7);
+        jMenu1.add(exportUsers);
+
+        importUsers.setText("Importar usuarios");
+        importUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importUsersActionPerformed(evt);
+            }
+        });
+        jMenu1.add(importUsers);
 
         jMenuBar1.add(jMenu1);
 
@@ -229,13 +234,13 @@ public class AdminView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_viewUsersActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void importUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importUsersActionPerformed
         // TODO add your handling code here:
-        Login login = new Login();
-        login.setVisible(true);
-        login.setLocationRelativeTo(null);
+        ImportUsers importUsers = new ImportUsers();
+        importUsers.setVisible(true);
+        importUsers.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_importUsersActionPerformed
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
         // TODO add your handling code here:
@@ -297,18 +302,27 @@ public class AdminView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_ImportProductsActionPerformed
 
+    private void exportUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportUsersActionPerformed
+        // TODO add your handling code here:
+        ViewUsers viewUsers = new ViewUsers();
+        viewUsers.setVisible(true);
+        viewUsers.setLocationRelativeTo(null);
+        this.dispose();
+        
+    }//GEN-LAST:event_exportUsersActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ImportProducts;
     private javax.swing.JMenuItem createProduct;
     private javax.swing.JMenuItem createUsers;
     private javax.swing.JMenuItem exportProducts;
+    private javax.swing.JMenuItem exportUsers;
+    private javax.swing.JMenuItem importUsers;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenu logout;
     private javax.swing.JMenuItem modifyProduct;
     private javax.swing.JMenuItem modifyUsers;
