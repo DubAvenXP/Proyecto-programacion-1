@@ -17,6 +17,12 @@ import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -33,7 +39,7 @@ public class ImportUsers extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void loadFile(File file){
+    public void loadFileCSV(File file){
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
         
@@ -76,6 +82,41 @@ public class ImportUsers extends javax.swing.JFrame {
         
     }
     
+    public void loadFileXML(File file){
+        try {
+            
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            Document document = builder.parse(file);
+            document.getDocumentElement().normalize();
+            
+            NodeList nodeList = document.getElementsByTagName("vendedor");
+            
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Node node = nodeList.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+                    User user = new User();
+                    user.setCode(Integer.parseInt(element.getAttributeNode("id").getTextContent()));
+                    user.setUsername(element.getElementsByTagName("usuario").item(0).getTextContent());
+                    user.setName(element.getElementsByTagName("nombre").item(0).getTextContent());
+                    user.setLastname(element.getElementsByTagName("apellido").item(0).getTextContent());
+                    user.setRole(element.getElementsByTagName("rol").item(0).getTextContent());
+                    user.setEmail(element.getElementsByTagName("correo").item(0).getTextContent());
+                    user.setPhone(element.getElementsByTagName("telefono").item(0).getTextContent());
+                    user.setAddress(element.getElementsByTagName("direccion").item(0).getTextContent());
+                    user.setBirthdate(element.getElementsByTagName("fechaNacimiento").item(0).getTextContent());
+                    user.setPassword(element.getElementsByTagName("contraseña").item(0).getTextContent());
+                    usersToLoad.add(user);
+                }
+            }
+            fillJTable(jTable1, usersToLoad);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void fillJTable(JTable jTable, ArrayList<User> users){
         DefaultTableModel defaultTableModel = new DefaultTableModel(
                 new String[]{"Id","Username","name","lastname","role","email","phone","address","birthdate","password"}, 
@@ -100,6 +141,22 @@ public class ImportUsers extends javax.swing.JFrame {
         }
     }
 
+    public void clearDuplicates(){
+        for (User user : usersToLoad) {
+            int duplicateValuesCounter = 0;
+            for (int i = 0; i < usersToLoad.size(); i++) {
+               if (user.getUsername().equals(usersToLoad.get(i).getUsername())) {
+                   duplicateValuesCounter++;
+                   if (duplicateValuesCounter >= 2) {
+                       usersToLoad.remove(usersToLoad.remove(i));
+                       
+                   }
+               }
+           }
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -109,7 +166,7 @@ public class ImportUsers extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        chooseFile = new javax.swing.JButton();
+        chooseFileCSV = new javax.swing.JButton();
         saveData = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -117,15 +174,17 @@ public class ImportUsers extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        chooseFileXML = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        chooseFile.setText("Seleccionar archivo");
-        chooseFile.addActionListener(new java.awt.event.ActionListener() {
+        chooseFileCSV.setText("Importar CSV");
+        chooseFileCSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chooseFileActionPerformed(evt);
+                chooseFileCSVActionPerformed(evt);
             }
         });
 
@@ -168,6 +227,16 @@ public class ImportUsers extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jLabel3.setText("Importar usuarios");
+
+        chooseFileXML.setText("Importar XML");
+        chooseFileXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseFileXMLActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("Regresar");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -186,37 +255,44 @@ public class ImportUsers extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(saveData, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(144, 144, 144)
+                        .addComponent(chooseFileXML, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(chooseFileCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(saveData, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chooseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(saveData, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                    .addComponent(chooseFileCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveData, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chooseFileXML, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
 
         pack();
@@ -226,12 +302,14 @@ public class ImportUsers extends javax.swing.JFrame {
         // TODO add your handling code here:
         AdminView adminView = new AdminView();
         adminView.setVisible(true);
+        adminView.setBounds(0, 0, Main.width, Main.height);
         adminView.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
 
-    private void chooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileActionPerformed
+    private void chooseFileCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileCSVActionPerformed
         // TODO add your handling code here:
+        usersToLoad.clear();
         JFileChooser jFileChooser = new JFileChooser();
         FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Archivos csv", "csv");
 
@@ -240,9 +318,9 @@ public class ImportUsers extends javax.swing.JFrame {
 
         if (seleccionar == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser.getSelectedFile();
-            loadFile(file);
+            loadFileCSV(file);
         }
-    }//GEN-LAST:event_chooseFileActionPerformed
+    }//GEN-LAST:event_chooseFileCSVActionPerformed
 
     private void saveDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveDataActionPerformed
         // TODO add your handling code here:
@@ -260,12 +338,12 @@ public class ImportUsers extends javax.swing.JFrame {
                     Main.users.add(user);
                 } else {
                     usersWithError.add(user);
-                    fillJTable(jTable2, usersWithError);
                 }
             }
             JOptionPane.showMessageDialog(this, "Usuarios cargados exitosamente");
             usersToLoad.clear();
             fillJTable(jTable1, usersToLoad);
+            fillJTable(jTable2, usersWithError);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Hubo un error al cargar los productos, revisa tu archivo");
@@ -273,10 +351,27 @@ public class ImportUsers extends javax.swing.JFrame {
 
     }//GEN-LAST:event_saveDataActionPerformed
 
+    private void chooseFileXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileXMLActionPerformed
+        // TODO add your handling code here:
+        usersToLoad.clear();
+        JFileChooser jFileChooser = new JFileChooser();
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Archivos xml", "xml");
+
+        jFileChooser.setFileFilter(fileFilter);
+        int seleccionar = jFileChooser.showOpenDialog(this);
+
+        if (seleccionar == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+            loadFileXML(file);
+        }
+    }//GEN-LAST:event_chooseFileXMLActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton chooseFile;
+    private javax.swing.JButton chooseFileCSV;
+    private javax.swing.JButton chooseFileXML;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;

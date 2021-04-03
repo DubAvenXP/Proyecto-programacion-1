@@ -100,6 +100,7 @@ public class Login extends javax.swing.JFrame {
         if(username.equals("admin") && password.equals("admin")){
             AdminView adminView = new AdminView();
             adminView.setVisible(true);
+            adminView.setBounds(0, 0, Main.width, Main.height);
             adminView.setLocationRelativeTo(null);
             userExits = true;
         } else {
@@ -108,6 +109,7 @@ public class Login extends javax.swing.JFrame {
                     if (user.getRole().equals("vendedor")) {
                         Bienvenida bienvenida = new Bienvenida(user);
                         bienvenida.setVisible(true);
+                        bienvenida.setBounds(0, 0, Main.width, Main.height);
                         bienvenida.setLocationRelativeTo(null);
                         userExits = true;
                     } else {

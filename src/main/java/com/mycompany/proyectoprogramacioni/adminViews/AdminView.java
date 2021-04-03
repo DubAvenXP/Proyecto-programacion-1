@@ -6,6 +6,7 @@
 package com.mycompany.proyectoprogramacioni.adminViews;
 
 import com.mycompany.proyectoprogramacioni.Login;
+import com.mycompany.proyectoprogramacioni.Main;
 import com.mycompany.proyectoprogramacioni.adminViews.CreateUser;
 
 /**
@@ -30,6 +31,12 @@ public class AdminView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         createUsers = new javax.swing.JMenuItem();
@@ -48,6 +55,24 @@ public class AdminView extends javax.swing.JFrame {
         logout = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel1.setText("Universidad: Mariano Galvez");
+
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel2.setText("Nombre: Alejandro Sebastian Dubon Estrada");
+
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel3.setText("Carnet: 3190-20-921");
+
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel4.setText("Curso: Programacion I");
+
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabel5.setText("Tercer Semestre");
+
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jLabel6.setText("Mi perfil");
 
         jMenu1.setText("Usuarios");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -187,11 +212,33 @@ public class AdminView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(282, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         pack();
@@ -210,6 +257,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         CreateUser createUser = new CreateUser();
         createUser.setVisible(true);
+        createUser.setBounds(0, 0, Main.width, Main.height);
         createUser.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_createUsersActionPerformed
@@ -218,6 +266,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         ModifyUsers modifyUsers = new ModifyUsers();
         modifyUsers.setVisible(true);
+        modifyUsers.setBounds(0, 0, Main.width, Main.height);
         modifyUsers.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_modifyUsersActionPerformed
@@ -230,6 +279,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         ViewUsers viewUsers = new ViewUsers();
         viewUsers.setVisible(true);
+        viewUsers.setBounds(0, 0, Main.width, Main.height);
         viewUsers.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_viewUsersActionPerformed
@@ -238,6 +288,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         ImportUsers importUsers = new ImportUsers();
         importUsers.setVisible(true);
+        importUsers.setBounds(0, 0, Main.width, Main.height);
         importUsers.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_importUsersActionPerformed
@@ -246,6 +297,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         Login login = new Login();
         login.setVisible(true);
+        login.setBounds(0, 0, Main.width, Main.height);
         login.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_logoutMouseClicked
@@ -266,6 +318,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         CreateProducts createProducts = new CreateProducts();
         createProducts.setVisible(true);
+        createProducts.setBounds(0, 0, Main.width, Main.height);
         createProducts.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_createProductActionPerformed
@@ -274,6 +327,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         ModifyProducts modifyProducts = new ModifyProducts();
         modifyProducts.setVisible(true);
+        modifyProducts.setBounds(0, 0, Main.width, Main.height);
         modifyProducts.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_modifyProductActionPerformed
@@ -282,6 +336,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         ViewProducts viewProducts = new ViewProducts();
         viewProducts.setVisible(true);
+        viewProducts.setBounds(0, 0, Main.width, Main.height);
         viewProducts.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_viewProductActionPerformed
@@ -290,6 +345,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         ViewProducts viewProducts = new ViewProducts();
         viewProducts.setVisible(true);
+        viewProducts.setBounds(0, 0, Main.width, Main.height);
         viewProducts.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_exportProductsActionPerformed
@@ -298,6 +354,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         ImportProducts importProducts = new ImportProducts();
         importProducts.setVisible(true);
+        importProducts.setBounds(0, 0, Main.width, Main.height);
         importProducts.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_ImportProductsActionPerformed
@@ -306,6 +363,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         ViewUsers viewUsers = new ViewUsers();
         viewUsers.setVisible(true);
+        viewUsers.setBounds(0, 0, Main.width, Main.height);
         viewUsers.setLocationRelativeTo(null);
         this.dispose();
         
@@ -318,6 +376,12 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JMenuItem exportProducts;
     private javax.swing.JMenuItem exportUsers;
     private javax.swing.JMenuItem importUsers;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

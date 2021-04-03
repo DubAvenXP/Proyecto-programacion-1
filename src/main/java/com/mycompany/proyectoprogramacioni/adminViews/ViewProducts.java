@@ -7,6 +7,7 @@ package com.mycompany.proyectoprogramacioni.adminViews;
 
 import com.mycompany.proyectoprogramacioni.Main;
 import com.mycompany.proyectoprogramacioni.Product;
+import com.mycompany.proyectoprogramacioni.User;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -14,6 +15,21 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Attr;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 /**
  *
@@ -78,6 +94,59 @@ public class ViewProducts extends javax.swing.JFrame {
         
     }
     
+    public void saveFileXML(File file){
+        try {
+            
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            DOMImplementation implementation = builder.getDOMImplementation();
+            
+            Document document = implementation.createDocument(null, "productos", null);
+            document.setXmlVersion("1.0");
+            
+            for (Product product : Main.products) {
+           
+                Element producto = document.createElement("producto");
+                Attr id = document.createAttribute("id");
+                id.setTextContent(String.valueOf(product.getCode()));
+                producto.setAttributeNode(id);
+                
+                Element nombre = document.createElement("nombre");
+                Text textNombre = document.createTextNode(product.getName());
+                nombre.appendChild(textNombre);
+                producto.appendChild(nombre);
+                
+                Element precio = document.createElement("precio");
+                Text textPrecio = document.createTextNode(String.valueOf(product.getPrice()));
+                precio.appendChild(textPrecio);
+                producto.appendChild(precio);
+
+                Element cantidad = document.createElement("cantidad");
+                Text textCantidad = document.createTextNode(String.valueOf(product.getQuantity()));
+                cantidad.appendChild(textCantidad);
+                producto.appendChild(cantidad);
+
+                Element descripcion = document.createElement("descripcion");
+                Text textDescripcion = document.createTextNode(product.getDescription());
+                descripcion.appendChild(textDescripcion);
+                producto.appendChild(descripcion);
+
+                document.getDocumentElement().appendChild(producto);
+            }
+            
+            
+            
+            Source source = new DOMSource(document);
+            Result result = new StreamResult(file);
+            
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.transform(source, result);
+         
+        } catch (ParserConfigurationException | TransformerException e) {
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,7 +162,8 @@ public class ViewProducts extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         productNameInput = new javax.swing.JTextField();
         goToModify = new javax.swing.JButton();
-        exportProducts = new javax.swing.JButton();
+        exportProductsCSV = new javax.swing.JButton();
+        exportProductsXML = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -125,10 +195,17 @@ public class ViewProducts extends javax.swing.JFrame {
             }
         });
 
-        exportProducts.setText("Exportar productos");
-        exportProducts.addActionListener(new java.awt.event.ActionListener() {
+        exportProductsCSV.setText("Exportar productos a CSV");
+        exportProductsCSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exportProductsActionPerformed(evt);
+                exportProductsCSVActionPerformed(evt);
+            }
+        });
+
+        exportProductsXML.setText("Exportar productos a XML");
+        exportProductsXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportProductsXMLActionPerformed(evt);
             }
         });
 
@@ -146,23 +223,25 @@ public class ViewProducts extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(93, 93, 93)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(productNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(goToModify, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(355, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(productNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(goToModify, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 343, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(exportProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(exportProductsXML, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(exportProductsCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,10 +250,12 @@ public class ViewProducts extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(exportProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(exportProductsCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(exportProductsXML, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
@@ -193,6 +274,7 @@ public class ViewProducts extends javax.swing.JFrame {
         // TODO add your handling code here:
         ModifyProducts modifyProducts = new ModifyProducts(productNameInput.getText());
         modifyProducts.setVisible(true);
+        modifyProducts.setBounds(0, 0, Main.width, Main.height);
         modifyProducts.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_goToModifyActionPerformed
@@ -201,11 +283,12 @@ public class ViewProducts extends javax.swing.JFrame {
         // TODO add your handling code here:
         AdminView adminView = new AdminView();
         adminView.setVisible(true);
+        adminView.setBounds(0, 0, Main.width, Main.height);
         adminView.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
 
-    private void exportProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportProductsActionPerformed
+    private void exportProductsCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportProductsCSVActionPerformed
         // TODO add your handling code here:
         JFileChooser jFileChooser = new JFileChooser();
         FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Archivos csv", "csv");
@@ -217,11 +300,27 @@ public class ViewProducts extends javax.swing.JFrame {
             File file = jFileChooser.getSelectedFile();
             saveFile(file);
         }
-    }//GEN-LAST:event_exportProductsActionPerformed
+    }//GEN-LAST:event_exportProductsCSVActionPerformed
+
+    private void exportProductsXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportProductsXMLActionPerformed
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        JFileChooser jFileChooser = new JFileChooser();
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Archivos xml", "xml");
+        
+        jFileChooser.setFileFilter(fileFilter);
+        int seleccionar = jFileChooser.showOpenDialog(this);
+        
+        if (seleccionar == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+            saveFileXML(file);
+        }
+    }//GEN-LAST:event_exportProductsXMLActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton exportProducts;
+    private javax.swing.JButton exportProductsCSV;
+    private javax.swing.JButton exportProductsXML;
     private javax.swing.JButton goToModify;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

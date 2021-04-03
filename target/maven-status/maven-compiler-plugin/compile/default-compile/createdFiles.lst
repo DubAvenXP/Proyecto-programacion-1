@@ -1,4 +1,5 @@
 com/mycompany/proyectoprogramacioni/adminViews/AdminView$8.class
+com/mycompany/proyectoprogramacioni/adminViews/ViewProducts$4.class
 com/mycompany/proyectoprogramacioni/adminViews/ModifyProducts$1.class
 com/mycompany/proyectoprogramacioni/adminViews/AdminView$15.class
 com/mycompany/proyectoprogramacioni/adminViews/CreateProducts$2.class
@@ -11,6 +12,7 @@ com/mycompany/proyectoprogramacioni/adminViews/ImportUsers$3.class
 com/mycompany/proyectoprogramacioni/Main.class
 com/mycompany/proyectoprogramacioni/adminViews/AdminView$1.class
 com/mycompany/proyectoprogramacioni/adminViews/ModifyUsers$3.class
+com/mycompany/proyectoprogramacioni/adminViews/ViewUsers$4.class
 com/mycompany/proyectoprogramacioni/Login.class
 com/mycompany/proyectoprogramacioni/adminViews/ModifyUsers$4.class
 com/mycompany/proyectoprogramacioni/adminViews/ViewProducts.class
@@ -23,6 +25,7 @@ com/mycompany/proyectoprogramacioni/adminViews/ModifyProducts$4.class
 com/mycompany/proyectoprogramacioni/adminViews/ImportProducts$2.class
 com/mycompany/proyectoprogramacioni/adminViews/AdminView$12.class
 com/mycompany/proyectoprogramacioni/adminViews/ViewProducts$1.class
+com/mycompany/proyectoprogramacioni/adminViews/ImportUsers$4.class
 com/mycompany/proyectoprogramacioni/Login$1.class
 com/mycompany/proyectoprogramacioni/adminViews/AdminView$13.class
 com/mycompany/proyectoprogramacioni/adminViews/ImportUsers$1.class
@@ -51,6 +54,7 @@ com/mycompany/proyectoprogramacioni/adminViews/ImportProducts$1.class
 com/mycompany/proyectoprogramacioni/adminViews/AdminView$5.class
 com/mycompany/proyectoprogramacioni/adminViews/ViewUsers$3.class
 com/mycompany/proyectoprogramacioni/adminViews/ModifyUsers.class
+com/mycompany/proyectoprogramacioni/adminViews/ImportProducts$4.class
 com/mycompany/proyectoprogramacioni/adminViews/ImportUsers.class
 com/mycompany/proyectoprogramacioni/adminViews/CreateUser$2.class
 com/mycompany/proyectoprogramacioni/adminViews/ImportProducts.class

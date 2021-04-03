@@ -289,6 +289,7 @@ public class CreateUser extends javax.swing.JFrame {
         // TODO add your handling code here:
         AdminView adminView = new AdminView();
         adminView.setVisible(true);
+        adminView.setBounds(0, 0, Main.width, Main.height);
         adminView.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
