@@ -53,13 +53,15 @@ public class ImportProducts extends javax.swing.JFrame {
             while((line = bufferedReader.readLine()) != null){
                 String arrayOfProduct [] = line.split("\\|");
                                 
-                if(arrayOfProduct.length == 5){
+                if(arrayOfProduct.length == 7){
                     Product product = new Product();
                     product.setCode(Integer.parseInt(arrayOfProduct[0]));
                     product.setName(arrayOfProduct[1]);
                     product.setPrice(Double.parseDouble(arrayOfProduct[2]));
                     product.setQuantity(Integer.parseInt(arrayOfProduct[3]));
                     product.setDescription(arrayOfProduct[4]);
+                    product.setType(arrayOfProduct[5]);
+                    product.setBrand(arrayOfProduct[6]);
                     productsToLoad.add(product);
                 }
             }
@@ -99,6 +101,8 @@ public class ImportProducts extends javax.swing.JFrame {
                     product.setPrice(Double.parseDouble(element.getElementsByTagName("precio").item(0).getTextContent()));
                     product.setQuantity(Integer.parseInt(element.getElementsByTagName("cantidad").item(0).getTextContent()));
                     product.setDescription(element.getElementsByTagName("descripcion").item(0).getTextContent());
+                    product.setType(element.getElementsByTagName("tipo").item(0).getTextContent());
+                    product.setBrand(element.getElementsByTagName("marca").item(0).getTextContent());
                     productsToLoad.add(product);
                 }
             }
@@ -110,7 +114,7 @@ public class ImportProducts extends javax.swing.JFrame {
     
     private void fillJTable(JTable jTable, ArrayList<Product> products){
         DefaultTableModel defaultTableModel = new DefaultTableModel(
-                new String[]{"Id","Producto","Precio","Cantidad","Descripcion"}, 
+                new String[]{"Id","Producto","Precio","Cantidad","Descripcion","Tipo","Marca"}, 
                 products.size()
         );
         
@@ -124,6 +128,8 @@ public class ImportProducts extends javax.swing.JFrame {
             tableModel.setValueAt("Q"+ product.getPrice(), i, 2);
             tableModel.setValueAt(product.getQuantity(), i, 3);
             tableModel.setValueAt(product.getDescription(), i, 4);
+            tableModel.setValueAt(product.getType(), i, 5);
+            tableModel.setValueAt(product.getBrand(), i, 6);
         }
         
     }

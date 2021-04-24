@@ -47,7 +47,7 @@ public class ViewProducts extends javax.swing.JFrame {
 
     private void fillJTable(){
         DefaultTableModel defaultTableModel = new DefaultTableModel(
-                new String[]{"Id","Producto","Precio","Cantidad","Descripcion"}, 
+                new String[]{"Id","Producto","Precio","Cantidad","Descripcion","Tipo","Marca"}, 
                 Main.products.size()
         );
         jTable1.setModel(defaultTableModel);
@@ -60,6 +60,8 @@ public class ViewProducts extends javax.swing.JFrame {
             tableModel.setValueAt("Q"+ product.getPrice(), i, 2);
             tableModel.setValueAt(product.getQuantity(), i, 3);
             tableModel.setValueAt(product.getDescription(), i, 4);
+            tableModel.setValueAt(product.getType(), i, 5);
+            tableModel.setValueAt(product.getBrand(), i, 6);
         }
         
     }
@@ -76,7 +78,8 @@ public class ViewProducts extends javax.swing.JFrame {
                 
                 String line = product.getCode()+"|"+product.getName()
                         +"|"+product.getPrice()+"|"+product.getQuantity()
-                        +"|"+product.getDescription();
+                        +"|"+product.getDescription()+"|"+product.getType()
+                        +"|"+product.getBrand();
                 printWriter.println(line);
             }
             
@@ -130,6 +133,16 @@ public class ViewProducts extends javax.swing.JFrame {
                 Text textDescripcion = document.createTextNode(product.getDescription());
                 descripcion.appendChild(textDescripcion);
                 producto.appendChild(descripcion);
+                
+                Element tipo = document.createElement("tipo");
+                Text textTipo = document.createTextNode(product.getType());
+                tipo.appendChild(textTipo);
+                producto.appendChild(tipo);
+                
+                Element marca = document.createElement("marca");
+                Text textMarca = document.createTextNode(product.getBrand());
+                marca.appendChild(textMarca);
+                producto.appendChild(marca);
 
                 document.getDocumentElement().appendChild(producto);
             }

@@ -10,7 +10,11 @@ public class Product {
     private String name;
     private String description;
     private int quantity;
+    private String type;
+    private String brand;
 
+    
+    
     /**
      * @return the code
      */
@@ -79,6 +83,34 @@ public class Product {
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    /**
+     * @return the type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
+     * @return the brand
+     */
+    public String getBrand() {
+        return brand;
+    }
+
+    /**
+     * @param brand the brand to set
+     */
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
             
     

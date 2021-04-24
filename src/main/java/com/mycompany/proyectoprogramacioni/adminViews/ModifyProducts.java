@@ -49,6 +49,8 @@ public class ModifyProducts extends javax.swing.JFrame {
                 priceInput.setText(String.valueOf(product.getPrice()));
                 quantityInput.setText(String.valueOf(product.getQuantity()));
                 descriptionInput.setText(product.getDescription());
+                typeInput.setText(product.getType());
+                brandInput.setText(product.getBrand());
                 break;
             }
         }
@@ -75,6 +77,10 @@ public class ModifyProducts extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         descriptionInput = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        typeInput = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        brandInput = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -118,6 +124,12 @@ public class ModifyProducts extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Descripcion:");
 
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("Tipo:");
+
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel8.setText("Marca");
+
         jMenu1.setText("Regresar");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -144,17 +156,25 @@ public class ModifyProducts extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(priceInput, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(priceInput, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(brandInput, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(productNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(productNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(typeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(descriptionInput, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(332, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,19 +194,28 @@ public class ModifyProducts extends javax.swing.JFrame {
                             .addComponent(productInput, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(36, 36, 36)
                             .addComponent(searchProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(80, Short.MAX_VALUE)))
+                    .addContainerGap(112, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(194, 194, 194)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(productNameInput)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(priceInput)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(productNameInput)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(typeInput)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(priceInput)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(brandInput)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(quantityInput)
@@ -228,11 +257,15 @@ public class ModifyProducts extends javax.swing.JFrame {
             productToModify.setPrice(Double.parseDouble(priceInput.getText()));
             productToModify.setQuantity(Integer.parseInt(quantityInput.getText()));
             productToModify.setDescription(descriptionInput.getText());
+            productToModify.setType(typeInput.getText());
+            productToModify.setBrand(brandInput.getText());
             JOptionPane.showMessageDialog(this, "Producto modificado con exito");
             productNameInput.setText("");
             priceInput.setText("");
             quantityInput.setText("");
             descriptionInput.setText("");
+            typeInput.setText("");
+            brandInput.setText("");
         } else {
             JOptionPane.showMessageDialog(this, "No se ha encontrado producto "
                 + "para modificar");
@@ -249,6 +282,8 @@ public class ModifyProducts extends javax.swing.JFrame {
             priceInput.setText("");
             quantityInput.setText("");
             descriptionInput.setText("");
+            typeInput.setText("");
+            brandInput.setText("");
         } else {
             JOptionPane.showMessageDialog(this, "No se ha encontrado usuario "
                 + "para eliminar");
@@ -266,6 +301,7 @@ public class ModifyProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField brandInput;
     private javax.swing.JButton deleteProduct;
     private javax.swing.JTextField descriptionInput;
     private javax.swing.JLabel jLabel1;
@@ -274,6 +310,8 @@ public class ModifyProducts extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JButton modifyProduct;
@@ -282,5 +320,6 @@ public class ModifyProducts extends javax.swing.JFrame {
     private javax.swing.JTextField productNameInput;
     private javax.swing.JTextField quantityInput;
     private javax.swing.JButton searchProduct;
+    private javax.swing.JTextField typeInput;
     // End of variables declaration//GEN-END:variables
 }
