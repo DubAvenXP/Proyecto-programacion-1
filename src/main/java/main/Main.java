@@ -6,6 +6,7 @@
 package main;
 
 import java.util.ArrayList;
+import sellerViews.Order;
 
 /**
  *
@@ -15,6 +16,7 @@ public class Main {
 
     public static ArrayList<User> users;
     public static ArrayList<Product> products;
+    public static ArrayList<Order> orders;
     public static int width = 1080;
     public static int height = 720;
     
@@ -26,6 +28,7 @@ public class Main {
         l.setLocationRelativeTo(null);
         users = new ArrayList<User>();
         products = new ArrayList<Product>();
+        orders = new ArrayList<Order>();
     }
     
 }
