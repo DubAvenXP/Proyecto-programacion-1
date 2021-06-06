@@ -5,6 +5,11 @@
  */
 package sellerViews;
 
+import com.toedter.calendar.JDateChooser;
+import java.text.SimpleDateFormat;
+import sellerViews.models.Order;
+import sellerViews.models.Buyer;
+import sellerViews.models.ProductToOrder;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -21,16 +26,26 @@ public class ShoppingCar extends javax.swing.JFrame {
     /**
      * Creates new form shoppingCar
      */
-    ProductToOrder productToOrder;
+    
     User user;
-    public ShoppingCar(ProductToOrder productToOrder, User user) {
+    Order order;
+    public ShoppingCar(Order order, User user) {
         initComponents();
-        this.productToOrder = productToOrder;
+        this.order = order;
         this.user = user;
         fillJTable();
         fillInputs();
     }
     
+    
+    public String getFecha(JDateChooser jd){
+        SimpleDateFormat Formato = new SimpleDateFormat("dd-MM-yyyy");
+        if (jd.getDate() != null) {
+            return Formato.format(jd.getDate());
+        } else {
+            return null;
+        }
+    }
         
     private void fillJTable(){
         DefaultTableModel defaultTableModel = new DefaultTableModel(
@@ -38,8 +53,8 @@ public class ShoppingCar extends javax.swing.JFrame {
         jTable1.setModel(defaultTableModel);
         TableModel tableModel = jTable1.getModel();
 
-        for (int i = 0; i < productToOrder.getProductsToOrder().size(); i++) {
-            Product product = productToOrder.getProductsToOrder().get(i);
+        for (int i = 0; i < order.getProductsToOrder().size(); i++) {
+            Product product = order.getProductsToOrder().get(i);
             tableModel.setValueAt(i+1, i, 0);
             tableModel.setValueAt(product.getName(), i, 1);
             tableModel.setValueAt(product.getDescription(), i, 2);
@@ -51,13 +66,13 @@ public class ShoppingCar extends javax.swing.JFrame {
     
     private void fillInputs(){
         sellerIdInput.setText(String.valueOf(user.getCode()));
-        purchaseStatus.setText("Ingresado");
+        //purchaseStatus.setText("Ingresado");
         totalInput.setText(String.valueOf(calculateTotalOrder()));
     }
     
     private double calculateTotalOrder(){
         double totalOrder = 0;
-        for (Product product : productToOrder.getProductsToOrder()) {
+        for (Product product : order.getProductsToOrder()) {
             totalOrder += product.getPrice();
         }
         return totalOrder;
@@ -100,8 +115,6 @@ public class ShoppingCar extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         sellerIdInput = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        deliveryDate = new javax.swing.JTextField();
-        purchaseStatus = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         totalInput = new javax.swing.JTextField();
@@ -111,8 +124,9 @@ public class ShoppingCar extends javax.swing.JFrame {
         generateOrder = new javax.swing.JButton();
         descriptionInput = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        purchaseStatus = new javax.swing.JComboBox<>();
+        deliveryDate = new com.toedter.calendar.JDateChooser();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -179,8 +193,12 @@ public class ShoppingCar extends javax.swing.JFrame {
         jLabel11.setText("Descripcion");
         jLabel11.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        purchaseStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Ingresado", "Cancelado" }));
+        purchaseStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                purchaseStatusActionPerformed(evt);
+            }
+        });
 
         jMenu2.setText("Regresar");
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -209,25 +227,9 @@ public class ShoppingCar extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(phoneInput, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(purchaseStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(sellerIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(nitInput, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(deliveryDate, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
@@ -243,7 +245,25 @@ public class ShoppingCar extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(totalInput, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                                .addComponent(generateOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(generateOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(nitInput, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(deliveryDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(sellerIdInput, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)))))
                 .addContainerGap(29, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -259,16 +279,16 @@ public class ShoppingCar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(85, 85, 85)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                     .addComponent(nameInput)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                     .addComponent(sellerIdInput))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nitInput)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deliveryDate))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(deliveryDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -323,16 +343,16 @@ public class ShoppingCar extends javax.swing.JFrame {
         bienvenida.setVisible(true);
         bienvenida.setBounds(0, 0, Main.width, Main.height);
         bienvenida.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void generateOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_generateOrderMouseClicked
         // TODO add your handling code here:
         if (validateInputs()) {
             validateInputs();
-            Order order = new Order();
             order.setBuyer(generateBuyer());
-            order.setDeliveryDate(deliveryDate.getText());
-            order.setPurchaseStatus(purchaseStatus.getText());
+            order.setDeliveryDate(getFecha(deliveryDate));
+            order.setPurchaseStatus(purchaseStatus.getSelectedItem().toString());
             order.setSellerId(Integer.parseInt(sellerIdInput.getText()));
             order.setTotal(Double.parseDouble(totalInput.getText()));
             order.setDescription(descriptionInput.getText());
@@ -344,10 +364,14 @@ public class ShoppingCar extends javax.swing.JFrame {
         
     }//GEN-LAST:event_generateOrderMouseClicked
 
+    private void purchaseStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_purchaseStatusActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressInput;
-    private javax.swing.JTextField deliveryDate;
+    private com.toedter.calendar.JDateChooser deliveryDate;
     private javax.swing.JTextField descriptionInput;
     private javax.swing.JButton generateOrder;
     private javax.swing.JLabel jLabel1;
@@ -361,7 +385,6 @@ public class ShoppingCar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -369,7 +392,7 @@ public class ShoppingCar extends javax.swing.JFrame {
     private javax.swing.JTextField nameInput;
     private javax.swing.JTextField nitInput;
     private javax.swing.JTextField phoneInput;
-    private javax.swing.JTextField purchaseStatus;
+    private javax.swing.JComboBox<String> purchaseStatus;
     private javax.swing.JTextField sellerIdInput;
     private javax.swing.JTextField totalInput;
     // End of variables declaration//GEN-END:variables

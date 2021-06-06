@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sellerViews;
+package sellerViews.models;
+
+import java.util.ArrayList;
+import main.Product;
 
 /**
  *
@@ -16,7 +19,24 @@ public class Order {
     private String deliveryDate;
     private String purchaseStatus;
     private String description;
-      
+    private ArrayList<Product> productsToOrder =  new ArrayList<Product>();
+
+    /**
+     * @return the productsToOrder
+     */
+    public ArrayList<Product> getProductsToOrder() {
+        return productsToOrder;
+    }
+
+    /**
+     * @param productsToOrder the productsToOrder to set
+     */
+    public void addProductsToOrder(Product product) {
+        productsToOrder.add(product);
+    }
+    
+    
+    
     /**
      * @return the buyer
      */
@@ -100,6 +120,4 @@ public class Order {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
 }

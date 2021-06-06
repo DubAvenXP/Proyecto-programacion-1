@@ -5,6 +5,20 @@
  */
 package sellerViews;
 
+import com.google.gson.Gson;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import main.Main;
+import main.User;
+import sellerViews.models.Order;
+
 /**
  *
  * @author dubavenxp
@@ -14,10 +28,93 @@ public class MyOrders extends javax.swing.JFrame {
     /**
      * Creates new form myOrders
      */
-    public MyOrders() {
+    User user;
+    public MyOrders(User user) {
         initComponents();
+        this.user = user;
+        fillJTable();
+    }
+    
+        private void fillJTable(){
+        DefaultTableModel defaultTableModel = new DefaultTableModel(
+            new String[]{"No.","Cliente","Codigo Vendedor","Total Q.","Fecha entrega", "Estatus"}, 6);
+        jTable1.setModel(defaultTableModel);
+        TableModel tableModel = jTable1.getModel();
+
+        for (int i = 0; i < Main.orders.size(); i++) {
+            Order order = Main.orders.get(i);
+            tableModel.setValueAt(i+1, i, 0);
+            tableModel.setValueAt(order.getBuyer().getBuyer(), i, 1);
+            tableModel.setValueAt(order.getSellerId(), i, 2);
+            tableModel.setValueAt("Q" + order.getTotal(), i, 3);
+            tableModel.setValueAt(order.getDeliveryDate(), i, 4);
+            tableModel.setValueAt(order.getPurchaseStatus(), i, 5);
+        }
     }
 
+        
+    public void saveFileJson(File file, String json){
+        FileWriter fileWriter = null;
+        PrintWriter printWriter = null;
+        
+        try {
+            fileWriter = new FileWriter(file);
+            printWriter = new PrintWriter(fileWriter);
+            
+            printWriter.println(json);
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            try {
+                if (fileWriter != null) {
+                    fileWriter.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+    }
+        
+    
+    public void loadFileJson(File file){
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+        String json = "";
+        
+        try {
+            fileReader = new FileReader(file);
+            bufferedReader = new BufferedReader(fileReader);
+            
+            String line;
+            while((line = bufferedReader.readLine()) != null){
+                json += line;
+            }
+            
+        
+            //fillJTable(jTable1, usersToLoad);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            try {
+                if (fileReader != null) {
+                    fileReader.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+       Gson gson = new Gson();
+       Order[] orders = gson.fromJson(json, Order[].class);
+        for (int i = 0; i < orders.length; i++) {
+            Main.orders.add(orders[i]);
+        }
+    }
+    
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,23 +124,143 @@ public class MyOrders extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        exportOrders = new javax.swing.JButton();
+        importOrders = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        jLabel1.setText("Mis pedidos");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        exportOrders.setText("Exportar a Json");
+        exportOrders.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exportOrdersMouseClicked(evt);
+            }
+        });
+
+        importOrders.setText("Importar de Json");
+        importOrders.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                importOrdersMouseClicked(evt);
+            }
+        });
+
+        jMenu1.setText("Regresar");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 963, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(importOrders)
+                        .addGap(18, 18, 18)
+                        .addComponent(exportOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {exportOrders, importOrders});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(exportOrders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(importOrders)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(220, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {exportOrders, importOrders});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        Home bienvenida = new Home(user);
+        bienvenida.setVisible(true);
+        bienvenida.setBounds(0, 0, Main.width, Main.height);
+        bienvenida.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void exportOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportOrdersMouseClicked
+        // TODO add your handling code here:
+        Gson json = new Gson();
+        String jsonToSave =  json.toJson(Main.orders);
+        
+        JFileChooser jFileChooser = new JFileChooser();
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Archivos json", "json");
+        
+        jFileChooser.setFileFilter(fileFilter);
+        int seleccionar = jFileChooser.showOpenDialog(this);
+        
+        if (seleccionar == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+            saveFileJson(file, jsonToSave);
+        }
+    }//GEN-LAST:event_exportOrdersMouseClicked
+
+    private void importOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_importOrdersMouseClicked
+        // TODO add your handling code here:
+        JFileChooser jFileChooser = new JFileChooser();
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Archivos json", "json");
+        
+        jFileChooser.setFileFilter(fileFilter);
+        int seleccionar = jFileChooser.showOpenDialog(this);
+        
+        if (seleccionar == JFileChooser.APPROVE_OPTION) {
+            File file = jFileChooser.getSelectedFile();
+            loadFileJson(file);
+            fillJTable();
+        }
+    }//GEN-LAST:event_importOrdersMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton exportOrders;
+    private javax.swing.JButton importOrders;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
