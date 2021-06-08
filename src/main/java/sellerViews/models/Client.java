@@ -9,8 +9,8 @@ package sellerViews.models;
  *
  * @author dubavenxp
  */
-public class Buyer {
-    private String buyerName;
+public class Client {
+    private String clientName;
     private String nit;
     private String phone;
     private String address;
@@ -18,15 +18,15 @@ public class Buyer {
     /**
      * @return the buyer
      */
-    public String getBuyer() {
-        return buyerName;
+    public String getClientName() {
+        return clientName;
     }
 
     /**
      * @param buyer the buyer to set
      */
-    public void setBuyer(String buyer) {
-        this.buyerName = buyer;
+    public void setClientName(String buyer) {
+        this.clientName = buyer;
     }
 
     /**

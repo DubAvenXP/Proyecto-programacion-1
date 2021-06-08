@@ -35,7 +35,7 @@ public class MyOrders extends javax.swing.JFrame {
         fillJTable();
     }
     
-        private void fillJTable(){
+    private void fillJTable(){
         DefaultTableModel defaultTableModel = new DefaultTableModel(
             new String[]{"No.","Cliente","Codigo Vendedor","Total Q.","Fecha entrega", "Estatus"}, 6);
         jTable1.setModel(defaultTableModel);
@@ -44,7 +44,7 @@ public class MyOrders extends javax.swing.JFrame {
         for (int i = 0; i < Main.orders.size(); i++) {
             Order order = Main.orders.get(i);
             tableModel.setValueAt(i+1, i, 0);
-            tableModel.setValueAt(order.getBuyer().getBuyer(), i, 1);
+            tableModel.setValueAt(order.getClient().getClientName(), i, 1);
             tableModel.setValueAt(order.getSellerId(), i, 2);
             tableModel.setValueAt("Q" + order.getTotal(), i, 3);
             tableModel.setValueAt(order.getDeliveryDate(), i, 4);
@@ -108,6 +108,7 @@ public class MyOrders extends javax.swing.JFrame {
         }
         
        Gson gson = new Gson();
+       
        Order[] orders = gson.fromJson(json, Order[].class);
         for (int i = 0; i < orders.length; i++) {
             Main.orders.add(orders[i]);

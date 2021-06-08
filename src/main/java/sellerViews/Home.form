@@ -32,6 +32,9 @@
               <Insets value="[5, 5, 0, 0]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu6MouseClicked"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="logout">
           <Properties>
@@ -450,6 +453,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="codeInput">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

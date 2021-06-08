@@ -13,7 +13,8 @@ import main.Product;
  * @author dubavenxp
  */
 public class Order {
-    private Buyer buyer;
+    private int id;
+    private Client client;
     private int sellerId;
     private double total;
     private String deliveryDate;
@@ -21,6 +22,8 @@ public class Order {
     private String description;
     private ArrayList<Product> productsToOrder =  new ArrayList<Product>();
 
+    
+    
     /**
      * @return the productsToOrder
      */
@@ -40,15 +43,15 @@ public class Order {
     /**
      * @return the buyer
      */
-    public Buyer getBuyer() {
-        return buyer;
+    public Client getClient() {
+        return client;
     }
 
     /**
      * @param buyer the buyer to set
      */
-    public void setBuyer(Buyer buyer) {
-        this.buyer = buyer;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     /**
@@ -119,5 +122,19 @@ public class Order {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }

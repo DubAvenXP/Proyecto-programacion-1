@@ -34,6 +34,19 @@ public class Home extends javax.swing.JFrame {
         bienvenidaInput.setText("Codigo del usurio: " + String.valueOf(user.getCode()));
     }
     
+    private void clearInputs(){
+        productNameInput.setText("");
+        priceInput.setText("");
+        stockInput.setText("");
+        descriptionInput.setText("");
+        typeInput.setText("");
+        brandInput.setText("");
+        quantityInput.setText("");
+        codeInput.setText("");
+        totalInput.setText("");
+        
+    }
+    
      public void searchProduct(String productName){
         
          for (Product product : Main.products) {
@@ -219,6 +232,8 @@ public class Home extends javax.swing.JFrame {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Codigo");
 
+        codeInput.setEditable(false);
+
         jMenu1.setText("Carrito");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -237,6 +252,11 @@ public class Home extends javax.swing.JFrame {
 
         jMenu6.setText("Mi perfil");
         jMenu6.setMargin(new java.awt.Insets(5, 5, 0, 0));
+        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu6MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu6);
 
         logout.setText("Cerrar sesion");
@@ -453,6 +473,7 @@ public class Home extends javax.swing.JFrame {
         
         order.addProductsToOrder(product);
         productsOnCar.setText(String.valueOf(calculateQuantityProducts()));
+        clearInputs();
         
         for (int i = 0; i < Main.products.size(); i++) {
             if (Main.products.get(i).getName().equals(product.getName())) {
@@ -480,6 +501,15 @@ public class Home extends javax.swing.JFrame {
         myOrders.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+        // TODO add your handling code here:
+        MyProfile myProfile = new MyProfile(user);
+        myProfile.setVisible(true);
+        myProfile.setBounds(0, 0, Main.width, Main.height);
+        myProfile.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jMenu6MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addToShoppingCar;

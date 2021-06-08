@@ -8,7 +8,7 @@ package sellerViews;
 import com.toedter.calendar.JDateChooser;
 import java.text.SimpleDateFormat;
 import sellerViews.models.Order;
-import sellerViews.models.Buyer;
+import sellerViews.models.Client;
 import sellerViews.models.ProductToOrder;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -78,9 +78,9 @@ public class ShoppingCar extends javax.swing.JFrame {
         return totalOrder;
     }
     
-    private Buyer generateBuyer(){
-        Buyer buyer = new Buyer();
-        buyer.setBuyer(nameInput.getText());
+    private Client generateBuyer(){
+        Client buyer = new Client();
+        buyer.setClientName(nameInput.getText());
         buyer.setNit(nitInput.getText());
         buyer.setPhone(phoneInput.getText());
         buyer.setAddress(addressInput.getText());
@@ -193,7 +193,7 @@ public class ShoppingCar extends javax.swing.JFrame {
         jLabel11.setText("Descripcion");
         jLabel11.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-        purchaseStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Ingresado", "Cancelado" }));
+        purchaseStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entregado", "Pendiente", "Cancelado" }));
         purchaseStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 purchaseStatusActionPerformed(evt);
@@ -346,17 +346,30 @@ public class ShoppingCar extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenu2MouseClicked
 
+    private void clearInputs(){
+        nameInput.setText("");
+        nitInput.setText("");
+        phoneInput.setText("");
+        addressInput.setText("");
+        descriptionInput.setText("");
+        sellerIdInput.setText("");
+        deliveryDate.cleanup();
+        totalInput.setText("");
+    }
+    
     private void generateOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_generateOrderMouseClicked
         // TODO add your handling code here:
         if (validateInputs()) {
             validateInputs();
-            order.setBuyer(generateBuyer());
+            order.setId(Main.orders.size()+1);
+            order.setClient(generateBuyer());
             order.setDeliveryDate(getFecha(deliveryDate));
             order.setPurchaseStatus(purchaseStatus.getSelectedItem().toString());
             order.setSellerId(Integer.parseInt(sellerIdInput.getText()));
             order.setTotal(Double.parseDouble(totalInput.getText()));
             order.setDescription(descriptionInput.getText());
             Main.orders.add(order);
+            clearInputs();
             JOptionPane.showMessageDialog(this, "Pedido procesado");
         } else {
             JOptionPane.showMessageDialog(this, "Los campos nombre cliente y total son requeridos");

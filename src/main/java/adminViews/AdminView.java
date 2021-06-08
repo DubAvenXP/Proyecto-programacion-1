@@ -50,7 +50,7 @@ public class AdminView extends javax.swing.JFrame {
         viewProduct = new javax.swing.JMenuItem();
         exportProducts = new javax.swing.JMenuItem();
         ImportProducts = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        shoppingDispatch = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         logout = new javax.swing.JMenu();
 
@@ -192,8 +192,13 @@ public class AdminView extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Despacho compras");
-        jMenuBar1.add(jMenu3);
+        shoppingDispatch.setText("Despacho compras");
+        shoppingDispatch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                shoppingDispatchMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(shoppingDispatch);
 
         jMenu4.setText("Mi perfil");
         jMenuBar1.add(jMenu4);
@@ -369,6 +374,15 @@ public class AdminView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_exportUsersActionPerformed
 
+    private void shoppingDispatchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_shoppingDispatchMouseClicked
+        // TODO add your handling code here:
+        ShoppingDispatch shoppingDispatch = new ShoppingDispatch();
+        shoppingDispatch.setVisible(true);
+        shoppingDispatch.setBounds(0, 0, Main.width, Main.height);
+        shoppingDispatch.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_shoppingDispatchMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ImportProducts;
     private javax.swing.JMenuItem createProduct;
@@ -384,12 +398,12 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu logout;
     private javax.swing.JMenuItem modifyProduct;
     private javax.swing.JMenuItem modifyUsers;
+    private javax.swing.JMenu shoppingDispatch;
     private javax.swing.JMenuItem viewProduct;
     private javax.swing.JMenuItem viewUsers;
     // End of variables declaration//GEN-END:variables
