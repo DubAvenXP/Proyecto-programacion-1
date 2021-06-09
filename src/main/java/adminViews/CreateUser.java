@@ -5,9 +5,9 @@
  */
 package adminViews;
 
+import models.User;
 import main.Login;
 import main.Main;
-import main.User;
 import javax.swing.JOptionPane;
 
 /**

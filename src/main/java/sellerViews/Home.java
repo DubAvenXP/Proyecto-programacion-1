@@ -5,15 +5,14 @@
  */
 package sellerViews;
 
-import sellerViews.models.ProductToOrder;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import main.Login;
 import main.Main;
-import main.Product;
-import main.User;
-import sellerViews.models.Order;
+import models.Product;
+import models.User;
+import models.Order;
 
 /**
  *

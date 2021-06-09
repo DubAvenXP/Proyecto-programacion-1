@@ -5,8 +5,10 @@
  */
 package main;
 
+import models.User;
+import models.Product;
 import java.util.ArrayList;
-import sellerViews.models.Order;
+import models.Order;
 
 /**
  *

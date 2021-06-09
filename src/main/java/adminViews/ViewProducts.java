@@ -5,9 +5,8 @@
  */
 package adminViews;
 
+import models.Product;
 import main.Main;
-import main.Product;
-import main.User;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;

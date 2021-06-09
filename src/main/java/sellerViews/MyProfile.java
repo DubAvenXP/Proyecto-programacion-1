@@ -5,8 +5,9 @@
  */
 package sellerViews;
 
+import javax.swing.JOptionPane;
 import main.Main;
-import main.User;
+import models.User;
 
 /**
  *
@@ -21,6 +22,79 @@ public class MyProfile extends javax.swing.JFrame {
     public MyProfile(User user) {
         initComponents();
         this.user = user;
+        fillUserInputs();
+    }
+    
+    private void fillUserInputs(){
+        usernameInput.setText(user.getUsername());
+        roleInput.setText(user.getRole());
+        nameInput.setText(user.getName());
+        lastnameInput.setText(user.getLastname());
+        birthdateInput.setText(user.getBirthdate());
+        passwordInput.setText(user.getPassword());
+        passwordInput1.setText(user.getPassword());
+        phoneInput.setText(user.getPhone());
+        addressInput.setText(user.getAddress());
+        emailInput.setText(user.getEmail());
+        dpiInput.setText(user.getDpi());
+    }
+    
+    private boolean validatePassword(String password){
+        boolean result = false;
+        int length = password.length();
+        int numbers = 0;
+        int capitals = 0;
+        int signs = 0;
+        
+        for (int i = 0; i < password.length(); i++) {
+            //signos
+            if ((password.charAt(i) > 32 && password.charAt(i) < 44)) {
+                signs++;
+            }
+            //numeros
+            if ((password.charAt(i) > 47 && password.charAt(i) < 58)) {
+                numbers++;
+            }
+            //mayusculas
+            if ((password.charAt(i) > 64 && password.charAt(i) < 91)) {
+                capitals++;
+            }
+        }
+        
+        
+        if ((length > 8) && (numbers >= 1) && (signs >= 1) && (capitals >= 1)) {
+            result = true;
+        }
+        
+        return result;
+        
+    }
+    
+    private void updateUser(){
+        String password = passwordInput.getText();
+
+        user.setUsername(usernameInput.getText());
+        user.setRole(roleInput.getText());
+        user.setName(nameInput.getName());
+        user.setLastname(lastnameInput.getText());
+        user.setBirthdate(birthdateInput.getText());
+        user.setPhone(phoneInput.getText());
+        user.setAddress(addressInput.getText());
+        user.setEmail(emailInput.getText());
+        user.setDpi(dpiInput.getText());
+        
+        if (password.equals(passwordInput1.getText())) {
+            if (validatePassword(password)) {
+                user.setPassword(password);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error, Contraseña insegura");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Error, Las contraseñas no coinciden");
+        }
+        fillUserInputs();
+        JOptionPane.showMessageDialog(this, "Datos actualizados con exito");
+
     }
 
     /**
@@ -40,7 +114,7 @@ public class MyProfile extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        usernameInput1 = new javax.swing.JTextField();
+        usernameInput = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         roleInput = new javax.swing.JTextField();
@@ -55,7 +129,7 @@ public class MyProfile extends javax.swing.JFrame {
         passwordInput1 = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        updateUser = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
@@ -86,7 +160,12 @@ public class MyProfile extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 48)); // NOI18N
         jLabel11.setText("Mi perfil");
 
-        jButton1.setText("Actualizar");
+        updateUser.setText("Actualizar");
+        updateUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateUserMouseClicked(evt);
+            }
+        });
 
         jMenu1.setText("Regresar");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -127,7 +206,7 @@ public class MyProfile extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(usernameInput1)
+                                        .addComponent(usernameInput)
                                         .addComponent(roleInput)
                                         .addComponent(lastnameInput)
                                         .addComponent(birthdateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -147,7 +226,7 @@ public class MyProfile extends javax.swing.JFrame {
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(dpiInput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(updateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(241, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -161,7 +240,7 @@ public class MyProfile extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(usernameInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(usernameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1))
                                 .addGap(7, 7, 7)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -202,7 +281,7 @@ public class MyProfile extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(updateUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,13 +301,18 @@ public class MyProfile extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
 
+    private void updateUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateUserMouseClicked
+        // TODO add your handling code here:
+        updateUser();
+        fillUserInputs();
+    }//GEN-LAST:event_updateUserMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressInput;
     private javax.swing.JTextField birthdateInput;
     private javax.swing.JTextField dpiInput;
     private javax.swing.JTextField emailInput;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -249,6 +333,7 @@ public class MyProfile extends javax.swing.JFrame {
     private javax.swing.JPasswordField passwordInput1;
     private javax.swing.JTextField phoneInput;
     private javax.swing.JTextField roleInput;
-    private javax.swing.JTextField usernameInput1;
+    private javax.swing.JButton updateUser;
+    private javax.swing.JTextField usernameInput;
     // End of variables declaration//GEN-END:variables
 }

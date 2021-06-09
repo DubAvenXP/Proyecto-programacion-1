@@ -9,8 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import main.Main;
-import main.Product;
-import sellerViews.models.Order;
+import models.Order;
 
 /**
  *
@@ -59,7 +58,7 @@ public class ShoppingDispatch extends javax.swing.JFrame {
 
         for (int i = 0; i < Main.orders.size(); i++) {
             Order order = Main.orders.get(i);
-            tableModel.setValueAt(i+1, i, 0);
+            tableModel.setValueAt(order.getId(), i, 0);
             tableModel.setValueAt(order.getClient().getClientName(), i, 1);
             tableModel.setValueAt(order.getSellerId(), i, 2);
             tableModel.setValueAt("Q" + order.getTotal(), i, 3);
@@ -138,7 +137,7 @@ public class ShoppingDispatch extends javax.swing.JFrame {
         jLabel8.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel9.setText("Total compra");
+        jLabel9.setText("Total compra Q.");
         jLabel9.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
         totalInput.setEditable(false);

@@ -16,8 +16,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import main.Main;
-import main.User;
-import sellerViews.models.Order;
+import models.User;
+import models.Order;
 
 /**
  *
@@ -37,13 +37,13 @@ public class MyOrders extends javax.swing.JFrame {
     
     private void fillJTable(){
         DefaultTableModel defaultTableModel = new DefaultTableModel(
-            new String[]{"No.","Cliente","Codigo Vendedor","Total Q.","Fecha entrega", "Estatus"}, 6);
+            new String[]{"Id","Cliente","Codigo Vendedor","Total Q.","Fecha entrega", "Estatus"}, 6);
         jTable1.setModel(defaultTableModel);
         TableModel tableModel = jTable1.getModel();
 
         for (int i = 0; i < Main.orders.size(); i++) {
             Order order = Main.orders.get(i);
-            tableModel.setValueAt(i+1, i, 0);
+            tableModel.setValueAt(order.getId(), i, 0);
             tableModel.setValueAt(order.getClient().getClientName(), i, 1);
             tableModel.setValueAt(order.getSellerId(), i, 2);
             tableModel.setValueAt("Q" + order.getTotal(), i, 3);
@@ -113,8 +113,14 @@ public class MyOrders extends javax.swing.JFrame {
         for (int i = 0; i < orders.length; i++) {
             Main.orders.add(orders[i]);
         }
+        updateIds();
     }
     
+    private void updateIds(){
+        for (int i = 0; i < Main.orders.size(); i++) {
+            Main.orders.get(i).setId(i+1);
+        }
+    }
         
     /**
      * This method is called from within the constructor to initialize the form.

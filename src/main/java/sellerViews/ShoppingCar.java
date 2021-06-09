@@ -7,15 +7,14 @@ package sellerViews;
 
 import com.toedter.calendar.JDateChooser;
 import java.text.SimpleDateFormat;
-import sellerViews.models.Order;
-import sellerViews.models.Client;
-import sellerViews.models.ProductToOrder;
+import models.Order;
+import models.Client;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import main.Main;
-import main.Product;
-import main.User;
+import models.Product;
+import models.User;
 
 /**
  *

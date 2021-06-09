@@ -5,6 +5,7 @@
  */
 package main;
 
+import models.User;
 import sellerViews.Home;
 import adminViews.AdminView;
 import javax.swing.JOptionPane;
