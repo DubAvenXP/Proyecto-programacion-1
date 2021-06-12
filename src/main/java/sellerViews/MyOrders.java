@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -29,20 +30,32 @@ public class MyOrders extends javax.swing.JFrame {
      * Creates new form myOrders
      */
     User user;
+    ArrayList<Order> sellerOrders = new ArrayList<Order>();
     public MyOrders(User user) {
         initComponents();
         this.user = user;
         fillJTable();
     }
     
+    private void getSellerProducts(ArrayList<Order> orders){
+        for (Order order : orders) {
+            if(order.getSellerId() == this.user.getCode()){
+                sellerOrders.add(order);
+            }
+        }
+    }
+    
+    
+    
     private void fillJTable(){
         DefaultTableModel defaultTableModel = new DefaultTableModel(
             new String[]{"Id","Cliente","Codigo Vendedor","Total Q.","Fecha entrega", "Estatus"}, 6);
         jTable1.setModel(defaultTableModel);
         TableModel tableModel = jTable1.getModel();
-
-        for (int i = 0; i < Main.orders.size(); i++) {
-            Order order = Main.orders.get(i);
+        
+        getSellerProducts(Main.orders);
+        for (int i = 0; i < sellerOrders.size(); i++) {
+            Order order = sellerOrders.get(i);
             tableModel.setValueAt(order.getId(), i, 0);
             tableModel.setValueAt(order.getClient().getClientName(), i, 1);
             tableModel.setValueAt(order.getSellerId(), i, 2);
